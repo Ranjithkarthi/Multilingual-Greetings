@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import TabItem from './components/TabItem/index'
 import './App.css'
 
 const languageGreetingsList = [
@@ -27,64 +28,30 @@ const languageGreetingsList = [
 
 // Replace your code here
 const App = () => {
-  const [state, setState] = useState(languageGreetingsList[0])
-  const [activeTab1, setActiveTab1] = useState(false)
-  const [activeTab2, setActiveTab2] = useState(false)
-  const [activeTab3, setActiveTab3] = useState(false)
+  const [state, setState] = useState(languageGreetingsList[0].id)
 
-  const onClickEnglish = () => {
-    setState(languageGreetingsList[0])
-    setActiveTab1(true)
-    setActiveTab2(false)
-    setActiveTab3(false)
+  const ChangeTab = id => {
+    setState(id)
   }
-
-  const onClickTamil = () => {
-    setState(languageGreetingsList[1])
-    setActiveTab2(true)
-    setActiveTab1(false)
-    setActiveTab3(false)
-  }
-
-  const onClickTelugu = () => {
-    setState(languageGreetingsList[2])
-    setActiveTab3(true)
-    setActiveTab2(false)
-    setActiveTab1(false)
-  }
+  const currentLanguage = languageGreetingsList.find(each => each.id === state)
+  const {imageUrl, imageAltText} = currentLanguage
 
   return (
     <div className="main-container">
       <h1 className="main-heading">Multilingual Language</h1>
-      <div className="btn-container">
-        <button
-          className={`btn ${activeTab1 ? 'active-btn' : ''}`}
-          type="button"
-          onClick={onClickEnglish}
-        >
-          {languageGreetingsList[0].buttonText}
-        </button>
-        <button
-          className={`btn ${activeTab2 ? 'active-btn' : ''}`}
-          type="button"
-          onClick={onClickTamil}
-        >
-          {languageGreetingsList[1].buttonText}
-        </button>
-        <button
-          className={`btn ${activeTab3 ? 'active-btn' : ''}`}
-          type="button"
-          onClick={onClickTelugu}
-        >
-          {languageGreetingsList[2].buttonText}
-        </button>
-      </div>
+      <ul className="btn-container">
+        {languageGreetingsList.map(each => (
+          <TabItem
+            key={each.id}
+            each={each}
+            ChangeTab={ChangeTab}
+            isActive={state === each.id}
+          />
+        ))}
+      </ul>
+
       <div>
-        <img
-          src={state.imageUrl}
-          alt={state.imageAltText}
-          className="displayImg"
-        />
+        <img src={imageUrl} alt={imageAltText} className="displayImg" />
       </div>
     </div>
   )

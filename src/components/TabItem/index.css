@@ -1,0 +1,17 @@
+.btn-list {
+  list-style-type: none;
+}
+
+.btn {
+  padding: 8px;
+  border-radius: 26px;
+  background-color: white;
+  border: 1px solid #db1c48;
+  color: #db1c48;
+  width: 90px;
+}
+
+.active-btn {
+  background-color: #db1c48;
+  color: #fff;
+}
